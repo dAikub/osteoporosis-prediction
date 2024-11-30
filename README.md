@@ -1,18 +1,5 @@
-# Name of Streamlit App
+![image](https://github.com/user-attachments/assets/ccf8c1fe-0dd0-4ff0-ab39-d4861ffc3c72)# Dataset
 
-Description of the app ...
+https://www.kaggle.com/datasets/amitvkulkarni/lifestyle-factors-influencing-osteoporosis
 
-## Demo App
-
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/dataprofessor/st-app/)
-
-## Section Heading
-
-This is filler text, please replace this with text for this section.
-
-## Further Reading
-
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
-- Resource 2
-- Resource 3
+## web app
