@@ -1,6 +1,14 @@
 import streamlit as st
 
+st.markdown("""
+<style>
+.st-emotion-cache-qnyxd6.ef3psqc5
+{
+    visibility: hidden;
+}
 
+</style>
+""", unsafe_allow_html=True)
 
 pg1 = st.Page(
     page="views/main_page.py",
