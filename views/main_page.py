@@ -102,7 +102,7 @@ def display_choice(df):
         new_row.append(radio_btn)
         st.markdown('---')
 
-    save = st.radio("ต้องการบันทึกข้อมูลหรือไม่",options=("Yes","No"),horizontal=True,index=None)
+    save = st.radio("Do you allow the website to collect your predictions?",options=("Yes","No"),horizontal=True,index=None)
     st.markdown('---')
 
 
