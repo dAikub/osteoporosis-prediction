@@ -5,12 +5,18 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report,confusion_matrix,accuracy_score
 from sklearn.model_selection import cross_val_score
 
+
+st.write("")
+st.write("")
+st.dataframe(pre.reload_df()[1],width=800)
 st.write("")
 st.write("")
 st.write("")
 st.write("")
 st.write("")
 st.write("")
+
+
 features_num = ['Age']
 for f in features_num:
     plt.figure(figsize=(8,3))
@@ -19,7 +25,8 @@ for f in features_num:
     plt.title(f)
     plt.grid()
     st.pyplot(plt.gcf())
-
+st.write("")
+st.write("")
 
 def display_data_bar(df_plot):
 
@@ -75,26 +82,15 @@ gb_cv_scores = cross_validation_eval(gb_model,x,y,k=5)
 accuracy = accuracy_score(y_test,gb_pred)*100
 
 
-
 df_tail = pre.df2.tail()
 display_data_bar(pre.df2)
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.dataframe(pre.df2,width=800)
+
+
+
 st.write("")
 st.write("")
 st.write("")
 st.write("")
 
-st.write("Accuracy of GradientBoosting is :",accuracy)
-st.write("Cross-Validation Scores (k=5)",gb_cv_scores)
+#st.write("Accuracy of GradientBoosting is :",accuracy)
+#st.write("Cross-Validation Scores (k=5)",gb_cv_scores)
