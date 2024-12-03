@@ -20,8 +20,13 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import cross_val_score , train_test_split
 import warnings
 
-file_path = 'osteoporosis.csv'
-df2 = pd.read_csv(file_path)
+
+def reload_df():
+    file_path = 'osteoporosis.csv'
+    df2 = pd.read_csv(file_path)
+    return file_path,df2
+
+file_path,df2 = reload_df()
 df = df2.drop(['Alcohol Consumption','Medications','Body Weight','Id','Age'], axis=1)
 raw_df2 = df2
 
@@ -97,9 +102,8 @@ def display_choice(df):
         new_row.append(radio_btn)
         st.markdown('---')
 
-
-
-
+    save = st.radio("ต้องการบันทึกข้อมูลหรือไม่",options=("Yes","No"),horizontal=True,index=None)
+    st.markdown('---')
 
 
 
@@ -121,12 +125,12 @@ def display_choice(df):
 
     if all(value is not None for value in new_row):
         user_enter = st.button("Enter")
-
         if user_enter:
-            display_result(data_input)
+            display_result(data_input,str(save))
 
 
-def display_report(result):
+
+def display_report(result,df_add_row,save):
     st.write("")
     st.write("")
     st.write("")
@@ -136,17 +140,13 @@ def display_report(result):
     else:
         st.image("https://i.postimg.cc/d1PVVZpp/1.png")
 
-    
-        
+    if save == "Yes":
+        st.success("บันทึกข้อมูลของคุณเรียบร้อยแล้ว")
+        df_add_row.to_csv(file_path, index=False)
+    else:
+        st.info("ข้อมูลของคุณไม่ถูกบันทึก")
 
-
-
-
-
-
-
-
-def display_result(data_input):
+def display_result(data_input,save):
     dataframe_input = pd.DataFrame(data_input)
     df_combined = pd.concat([raw_df2, dataframe_input], ignore_index=True)
 
@@ -167,7 +167,18 @@ def display_result(data_input):
 
 
     result = gb.predict(input_data)
-    display_report(int(result))
+
+    result_int = int(result[0])
+    dataframe_input_predicted = dataframe_input.copy()
+    dataframe_input_predicted['Osteoporosis'] = result_int
+    dataframe_input_predicted.head()
+    df_add_row = pd.concat([raw_df2, dataframe_input_predicted], ignore_index=True)
+
+
+
+
+    
+    display_report(int(result),df_add_row,save)
 
 
 
@@ -239,13 +250,7 @@ gb.fit(x_train,y_train)
 gb_pred = gb.predict(x_test)
 
 
-
-
-
-
-
 display_choice(df2)
-
 
 
 
