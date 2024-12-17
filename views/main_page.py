@@ -23,13 +23,15 @@ import warnings
 
 def reload_df():
     file_path = 'osteoporosis.csv'
+    file_path2 = 'predicted.csv'
     df2 = pd.read_csv(file_path)
-    return file_path,df2
+    predict_df = pd.read_csv(file_path2)
+    return file_path,file_path2,df2,predict_df
 
-file_path,df2 = reload_df()
+file_path,file_path2,df2,predict_df = reload_df()
 df = df2.drop(['Alcohol Consumption','Medications','Body Weight','Id','Age'], axis=1)
 raw_df2 = df2
-
+raw_df3 = predict_df
 st.markdown("""
     <style>
         .stButton>button {
@@ -97,10 +99,38 @@ def display_choice(df):
 
     #ลูปเรียก Radio Button
     for col in df.columns:
-        unique_values = df[col].dropna().unique()
-        radio_btn = st.radio(col,options=(unique_values),horizontal=True,index=None)
-        new_row.append(radio_btn)
-        st.markdown('---')
+        if col == "Medical Conditions":
+            unique_values = df[col].dropna().unique()
+            radio_btn = st.radio(col,options=("Rheumatoid Arthritis","Hyperthyroidism","No"),horizontal=True,index=None)
+            new_row.append(radio_btn)
+            st.info('Any existing medical conditions that the individual may have. This can include conditions like Rheumatoid')
+            st.markdown('---')
+        else:
+            unique_values = df[col].dropna().unique()
+            radio_btn = st.radio(col,options=(unique_values),horizontal=True,index=None)
+            new_row.append(radio_btn)
+            if col == "Age":
+                st.info("The age of the individual in years")
+            if col == "Gender":
+                st.info('The gender of the individual. This can be either "Male" or "Female".')
+            if col == "Hormonal Changes":
+                st.info("Indicates whether the individual has undergone hormonal changes, particularly related to menopause. This can be")
+            if col == "Family History":
+                st.info('Indicates whether there is a family history of osteoporosis or fractures. This can be "Yes" or "No".')
+            if col == "Race/Ethnicity":
+                st.info('The race or ethnicity of the individual. This can include categories such as "Caucasian", "African American", "Asian", etc.')
+            if col == "Calcium Intake":
+                st.info('The level of calcium intake in the individuals diet. This can be "Low" or "Adequate".')
+            if col == "Vitamin D Intake":
+                st.info('The level of vitamin D intake in the individuals diet. This can be "Insufficient" or "Sufficient".')
+            if col == "Physical Activity":
+                st.info('Indicates the level of physical activity of the individual. This can be "Sedentary" for low activity levels or "Active"')
+            if col == "Smoking":
+                st.info('Indicates whether the individual is a smoker. This can be "Yes" or "No".')
+            if col == "Prior Fractures":
+                st.info('Indicates whether the individual has previously experienced fractures. This can be "Yes" or "No".')
+
+            st.markdown('---')
 
     save = st.radio("Do you allow the website to collect your predictions?",options=("Yes","No"),horizontal=True,index=None)
     st.markdown('---')
@@ -142,7 +172,7 @@ def display_report(result,df_add_row,save):
 
     if save == "Yes":
         st.success("บันทึกข้อมูลของคุณเรียบร้อยแล้ว")
-        df_add_row.to_csv(file_path, index=False)
+        df_add_row.to_csv(file_path2, index=False)
     else:
         st.info("ข้อมูลของคุณไม่ถูกบันทึก")
 
@@ -172,7 +202,7 @@ def display_result(data_input,save):
     dataframe_input_predicted = dataframe_input.copy()
     dataframe_input_predicted['Osteoporosis'] = result_int
     dataframe_input_predicted.head()
-    df_add_row = pd.concat([raw_df2, dataframe_input_predicted], ignore_index=True)
+    df_add_row = pd.concat([raw_df3, dataframe_input_predicted], ignore_index=True)
 
 
 
@@ -272,6 +302,5 @@ plt.figure(figsize=(10, 6))
 sns.countplot(data=df2, x="Osteoporosis", hue="Race/Ethnicity")
 plt.title("Count of Individuals with and without Osteoporosis by Race/Ethnicity")
 #st.pyplot(plt.gcf())
-
 
 
