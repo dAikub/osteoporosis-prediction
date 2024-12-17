@@ -8,7 +8,10 @@ from sklearn.model_selection import cross_val_score
 
 st.write("")
 st.write("")
-st.dataframe(pre.reload_df()[1],width=800)
+st.info("Dataset")
+st.dataframe(pre.reload_df()[2],width=800)
+st.info("Predicted")
+st.dataframe(pre.reload_df()[3],width=800)
 st.write("")
 st.write("")
 st.write("")
