@@ -79,7 +79,7 @@ st.markdown(
 def display_choice(df):
     #ส่วนหน้ากรอก
     st.title("Osteoporosis Risk Prediction")
-    st.subheader("กรุณากรอกข้อมูลเพื่อพยากรณ์โรคกระดูกพรุน")
+    st.subheader("Please fill in information to predict osteoporosis.")
     st.write("")
     st.write("")
     st.write("")
