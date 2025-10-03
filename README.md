@@ -1,5 +1,1 @@
-## Dataset
-
-https://www.kaggle.com/datasets/amitvkulkarni/lifestyle-factors-influencing-osteoporosis
-
-## web app
+https://osteoporosis-prediction-bu.streamlit.app/
